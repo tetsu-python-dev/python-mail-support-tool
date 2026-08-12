@@ -44,7 +44,7 @@ GUIからテンプレートや予約時間を編集できるため、コード�
 
 ## テンプレート編集
 
-<img width="1571" height="1485" alt="ポートフォリオ用定型" src="https://github.com/user-attachments/assets/dcc3ce5e-b8c4-49f0-81e5-eee78fe9c893" />
+<img width="1557" height="1478" alt="ポートフォリオ定型" src="https://github.com/user-attachments/assets/eef9778a-d2e2-44b7-9f85-ef781c42fb01" />
 
 
 ---
