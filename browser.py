@@ -1,5 +1,4 @@
 import asyncio
-import threading
 import time
 from datetime import datetime
 from pathlib import Path
@@ -14,6 +13,9 @@ SEND_WAIT_SECONDS = 0.3
 BASE_DIR = Path(__file__).resolve().parent
 PROFILE_DIR = BASE_DIR / "chrome_profile"
 
+# ポートフォリオ公開用:
+# 以下で使用するHTMLセレクタは、実際の業務環境とは異なる汎用的な名称に置き換えています。
+
 
 class BrowserController:
     def __init__(self):
@@ -23,28 +25,7 @@ class BrowserController:
         self.stop_flag = False
         self.current_url = None
 
-    def print_async_location(self, label):
-        try:
-            loop = asyncio.get_running_loop()
-
-            print(
-                f"[実行環境] {label}: "
-                f"thread={threading.get_ident()} "
-                f"loop={id(loop)}",
-                flush=True
-            )
-
-        except RuntimeError:
-            print(
-                f"[実行環境] {label}: "
-                f"thread={threading.get_ident()} "
-                f"loop=なし",
-                flush=True
-            )
-
     async def start(self):
-        self.print_async_location("start")
-
         self.playwright = await async_playwright().start()
 
         self.context = await self.playwright.chromium.launch_persistent_context(
@@ -59,8 +40,6 @@ class BrowserController:
         )
 
     async def open_url(self, url):
-        self.print_async_location("open_url")
-
         if self.page is None:
             await self.start()
 
@@ -92,10 +71,6 @@ class BrowserController:
         timeout=0.5,
         label="未指定"
     ):
-        self.print_async_location(
-            f"safe_eval:{label}"
-        )
-
         start_time = time.perf_counter()
 
         try:
@@ -148,10 +123,6 @@ class BrowserController:
         mode,
         progress_callback
     ):
-        self.print_async_location(
-            "run_reservations"
-        )
-
         self.stop_flag = False
         total = len(reservations)
 
@@ -285,7 +256,7 @@ class BrowserController:
             try:
                 await asyncio.wait_for(
                     self.page.click(
-                        "#btn_check_personal"
+                        "#submitButton"
                     ),
                     timeout=0.5
                 )
@@ -420,7 +391,7 @@ class BrowserController:
             """
             message => {
                 const el = document.querySelector(
-                    "#inputMessage"
+                    "#messageInput"
                 );
 
                 if (el) {
@@ -439,8 +410,8 @@ class BrowserController:
                 () => {
                     const el =
                         document.querySelector(
-                            'input[name="reserve_type"]'
-                            + '[value="3"]'
+                            'input[name="reservation_type"]'
+                            + '[value="scheduled"]'
                         );
 
                     if (el) {
@@ -460,7 +431,7 @@ class BrowserController:
                 dateText => {
                     const el =
                         document.querySelector(
-                            'input[name="reserve_dt"]'
+                            'input[name="reservation_date"]'
                         );
 
                     if (el) {
@@ -478,7 +449,7 @@ class BrowserController:
                 hour => {
                     const el =
                         document.querySelector(
-                            'select[name="reserve_dt_h"]'
+                            'select[name="reservation_hour"]'
                         );
 
                     if (el) {
@@ -495,7 +466,7 @@ class BrowserController:
                 minute => {
                     const el =
                         document.querySelector(
-                            'select[name="reserve_dt_m"]'
+                            'select[name="reservation_minute"]'
                         );
 
                     if (el) {
@@ -513,8 +484,8 @@ class BrowserController:
                 () => {
                     const el =
                         document.querySelector(
-                            'input[name="reserve_type"]'
-                            + '[value="2"]'
+                            'input[name="reservation_type"]'
+                            + '[value="delay"]'
                         );
 
                     if (el) {
@@ -530,7 +501,7 @@ class BrowserController:
                 minute => {
                     const el =
                         document.querySelector(
-                            "#reserve_min"
+                            "#delayMinutes"
                         );
 
                     if (el) {
@@ -549,34 +520,34 @@ class BrowserController:
             () => {
                 const messageEl =
                     document.querySelector(
-                        "#inputMessage"
+                        "#messageInput"
                     );
 
                 const reserveType2 =
                     document.querySelector(
-                        'input[name="reserve_type"]'
-                        + '[value="2"]'
+                        'input[name="reservation_type"]'
+                        + '[value="delay"]'
                     );
 
                 const reserveType3 =
                     document.querySelector(
-                        'input[name="reserve_type"]'
-                        + '[value="3"]'
+                        'input[name="reservation_type"]'
+                        + '[value="scheduled"]'
                     );
 
                 const minEl =
                     document.querySelector(
-                        "#reserve_min"
+                        "#delayMinutes"
                     );
 
                 const hourEl =
                     document.querySelector(
-                        'select[name="reserve_dt_h"]'
+                        'select[name="reservation_hour"]'
                     );
 
                 const minuteEl =
                     document.querySelector(
-                        'select[name="reserve_dt_m"]'
+                        'select[name="reservation_minute"]'
                     );
 
                 return {
