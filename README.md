@@ -53,7 +53,7 @@ GUIから送信先やテンプレート、予約時間などを設定でき、�
 
 ## 予約時間編集
 
-<img width="859" height="1438" alt="ポートフォリオ用時間" src="https://github.com/user-attachments/assets/b69fac48-b6f6-4b16-944e-2d4c2e214dac" />
+<img width="864" height="1437" alt="ポートフォリオ時間" src="https://github.com/user-attachments/assets/ca52c2b2-dc58-4da2-bfbd-da3148b719b2" />
 
 
 ---
