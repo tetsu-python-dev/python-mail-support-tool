@@ -568,7 +568,7 @@ class App:
         top_frame = tk.Frame(editor)
         top_frame.pack(pady=15)
 
-        tk.Label(top_frame, text="モード").grid(row=0, column=0, padx=5)
+        tk.Label(top_frame, text="テンプレート").grid(row=0, column=0, padx=5)
 
         mode_box = ttk.Combobox(
             top_frame,
