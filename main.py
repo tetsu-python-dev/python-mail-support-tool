@@ -1,7 +1,3 @@
-import os
-
-print("現在のフォルダ:", os.getcwd())
-print("messages.jsonは存在する？", os.path.exists("messages.json"))
 import json
 import tkinter as tk
 from tkinter import ttk, messagebox
@@ -775,7 +771,7 @@ class App:
             except:
                 messagebox.showerror(
                     "入力エラー",
-                    "通常定型は 08:05 / 8:5 / 805 の形式で入力してください。\nLINE・QR定型は 1〜999 の数字のみ入力してください。"
+                    "通常定型は 08:05 / 8:5 / 805 の形式で入力してください。\nフォローアップ・リマインドは 1〜999 の数字のみ入力してください。"
                 )
                 return
 
